@@ -23,10 +23,49 @@ Import bibliographic entries to Papis using Zotero Translation Server"
 * Documentation: https://papis-zotero-translation-server.readthedocs.io.
 
 
-Features
---------
+Introduction
+------------
 
-* TODO
+`Papis <https://github.com/papis/papis>`_ is a command line bibliography
+manager. This project adds support for `Zotero Translation Server
+<https://github.com/zotero/translation-server>`_, which can be used to import
+bibliographic information from web pages supported by Zotero translators.
+
+There is already `support <https://github.com/papis/papis-zotero>`_ for Zotero
+translators in Papis, but the imported data are in the Zotero's internal
+format, which is not easy to convert to something supported target
+applications, such as BibLaTeX, BibTeX or Citeproc. After some experiments,
+I've decided to use the Zotero Translation Server. It already supports
+conversion to various data models, so we can select the most suitable one
+according to the desired use. 
+
+Usage
+-----
+
+::
+
+  papis zotero_translation [options] URL
+
+The required argument is URL address with bibliographic information you want to
+import. Without options, it will import data in the BibLaTeX format. BibLaTeX
+is successor of BibTeX with much higher number of supported publication types
+and supported fields.
+
+Supported options:
+
+-h, --help          Show this message and exit.
+-f, --format TEXT   Format that will be imported to Papis. biblatex by
+                    default
+-l, --library TEXT  Select Papis library
+-s, --server TEXT   Address of the Zotero Translation Server
+
+Supported formats:
+
+- biblatex
+- bibtex
+- csljson
+
+Default address of the server is ``http://127.0.0.1:1969``.
 
 Credits
 -------
