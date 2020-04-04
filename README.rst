@@ -42,7 +42,8 @@ according to the desired use.
 Usage
 -----
 
-::
+The `Zotero Translation Server <https://github.com/zotero/translation-server>`_
+must be installed and running before the following command can be used::
 
   papis zotero_translation [options] URL
 
