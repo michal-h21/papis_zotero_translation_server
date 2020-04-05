@@ -76,11 +76,14 @@ def process_records(records):
 
 def run(url, server,format):
     logger.info("Processing URL:" + url)
-    # we need to get the raw JSON data from the translators first
-    r = requests.post(server + "/web", data = url, headers = {'Content-Type': 'text/plain'})
-    json_data = r.text.encode("utf-8")
-    # the raw JSON needs to be converted to desired data format (biblatex by default)
-    data_request = requests.post(server + "/export", data = json_data, headers = {'Content-Type': 'application/json'}, params = {'format':format})
+    try:
+        # we need to get the raw JSON data from the translators first
+        r = requests.post(server + "/web", data = url, headers = {'Content-Type': 'text/plain'})
+        json_data = r.text.encode("utf-8")
+        # the raw JSON needs to be converted to desired data format (biblatex by default)
+        data_request = requests.post(server + "/export", data = json_data, headers = {'Content-Type': 'application/json'}, params = {'format':format})
+    except requests.exceptions.RequestException as e: 
+        raise SystemExit(e)
     # check if the format is supported
     if format=="biblatex" or format=="bibtex":
         records = from_bibtex(data_request)
