@@ -68,7 +68,9 @@ def process_record(fields):
     logger.info(fields)
     # check for duplicate bibkeys
     fields = check_bibkey(fields)
-    papis.commands.add.run([], data = fields)
+    if print_citekey: # set by the --print cli switch
+        click.echo(fields["ref"])
+    papis.commands.add.run(files, data = fields)
 
 def process_records(records):
     for fields in records:

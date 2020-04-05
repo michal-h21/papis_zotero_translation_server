@@ -25,16 +25,25 @@ papis.config.register_default_settings(options)
     help="Select Papis library",
     type=str
 )
+@click.option("--print", "-p",
+    help="Print cite key of the added record",
+    type=bool,
+    is_flag=True,
+    default=False
+)
 @click.option("--server", "-s",
     help="Address of the Zotero Translation Server",
     type=str,
     default=papis.config.get('translation-server')
 )
-def main(url, server, format,library):
+def main(url, server, format,library, print, edit):
     """Console script for papis_zotero_translation_server."""
     # select the library if we don't want to use the default 
     if library:
         papis.config.set_lib_from_name(library)
+    # set boolean options
+    papis_zotero_translation_server.print_citekey = print
+    papis_zotero_translation_server.edit = edit
     papis_zotero_translation_server.run(url,server, format)
     return 0
 
